@@ -1,0 +1,63 @@
+{
+  "name": "three-fbx-viewer",
+  "productName": "FBX Viewer",
+  "version": "1.0.0",
+  "description": "Preview FBX models using three.js and a drag-and-drop interface.",
+  "main": "electron/main.js",
+  "browser": "src/app.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "browserify src/app.js -o bundle.js",
+    "package": "npm run package:windows && npm run package:mac && npm run package:linux",
+    "package:windows": "electron-packager . fbx-viewer --overwrite --asar --platform=win32 --arch=ia32 --icon=assets/icons/fbx-Viewer.ico --out=dist --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"fbx Viewer\"",
+    "package:mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/fbx-Viewer.icns --out=dist",
+    "package:linux": "electron-packager . fbx-viewer --overwrite --asar --platform=linux --arch=x64 --icon=assets/icons/fbx-Viewer.png --out=dist",
+    "dev": "budo src/app.js:bundle.js --port 3000",
+    "dev:electron": "concurrently \"watchify src/app.js -o bundle.js\" \"npm start\"",
+    "test": "node scripts/gen_test.js",
+    "deploy": "npm run build && now --prod && npm run clean",
+    "clean": "rm bundle.js",
+    "postversion": "git push && git push --tags"
+  },
+  "keywords": [
+    "fbx",
+    "three.js",
+    "three",
+    "3d",
+    "model",
+    "modeling",
+    "webgl"
+  ],
+  "author": "Don McCurdy <dm@donmccurdy.com> (https://www.donmccurdy.com)",
+  "contributors": [
+    "Pavel Kuznetsov <i@limitless.pro> (https://limitless.pro)"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "dat.gui": "^0.7.6",
+    "glob-to-regexp": "^0.4.1",
+    "open": "0.0.5",
+    "query-string": "^4.3.4",
+    "serve": "^10.1.2",
+    "simple-dropzone": "^0.5.3",
+    "three": "^0.110.0",
+    "three-vignette-background": "^1.0.3",
+    "zipjs-browserify": "^1.0.1"
+  },
+  "devDependencies": {
+    "browserify": "^16.5.0",
+    "budo": "^11.6.3",
+    "chalk": "^2.4.2",
+    "concurrently": "^3.6.1",
+    "electron": "^3.1.13",
+    "electron-packager": "^12.2.0",
+    "glslify": "^6.4.1",
+    "node-fetch": "^1.7.3",
+    "watchify": "^3.11.1"
+  },
+  "browserify": {
+    "transform": [
+      "glslify"
+    ]
+  }
+}
