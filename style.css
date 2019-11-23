@@ -141,10 +141,6 @@ header h1 + .separator {
   right: 0;
   bottom: 0;
   overflow: auto;
-  pointer-events: none;
-}
-
-.gui-wrap > .main {
   pointer-events: all;
 }
 
