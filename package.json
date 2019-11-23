@@ -36,7 +36,7 @@
   "dependencies": {
     "dat.gui": "^0.7.6",
     "glob-to-regexp": "^0.4.1",
-    "open": "0.0.5",
+    "open": "7.0.0",
     "query-string": "^4.3.4",
     "serve": "^10.1.2",
     "simple-dropzone": "^0.5.3",
