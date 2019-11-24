@@ -1,12 +1,10 @@
-/** global: THREE */
+/*global
+URL,navigator,THREE,Stats,dat,environments,createVignetteBackground,DEFAULT_CAMERA,IS_IOS,MAP_NAMES,Preset
+*/
 const THREE = window.THREE = require('three');
-/** global: Stats */
 const Stats = require('../lib/stats.min');
-/** global: dat */
 const dat = require('dat.gui');
-/** global: environments */
 const environments = require('../assets/environment/index');
-/** global: createVignetteBackground */
 const createVignetteBackground = require('three-vignette-background');
 
 require('three/examples/js/loaders/FBXLoader');
@@ -17,16 +15,12 @@ require('three/examples/js/loaders/HDRCubeTextureLoader');
 require('three/examples/js/pmrem/PMREMGenerator');
 require('three/examples/js/pmrem/PMREMCubeUVPacker');
 
-/** global: DEFAULT_CAMERA */
 const DEFAULT_CAMERA = '[default]';
 
-/** global: IS_IOS */
-/** global: navigator */
 const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
 // glTF texture types. `envMap` is deliberately omitted, as it's used internally
 // by the loader but not part of the glTF format.
-/** global: MAP_NAMES */
 const MAP_NAMES = [
     'map',
     'aoMap',
@@ -37,7 +31,6 @@ const MAP_NAMES = [
     'roughnessMap',
     'specularMap',
 ];
-/** global: Preset */
 const Preset = {ASSET_GENERATOR: 'assetgenerator'};
 
 module.exports = class Viewer {
@@ -185,7 +178,6 @@ module.exports = class Viewer {
 
                 if (assetMap.has(normalizedURL)) {
                     const blob = assetMap.get(normalizedURL);
-                    /** global: URL */
                     const blobURL = URL.createObjectURL(blob);
                     blobURLs.push(blobURL);
                     return blobURL;
