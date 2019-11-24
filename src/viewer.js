@@ -289,7 +289,9 @@ module.exports = class Viewer {
         }
 
         this.clips = clips;
-        if (!clips.length) return;
+        if (!clips.length) {
+            return;
+        }
 
         this.mixer = new THREE.AnimationMixer(this.content);
     }
@@ -323,9 +325,15 @@ module.exports = class Viewer {
             ? THREE.sRGBEncoding
             : THREE.LinearEncoding;
         traverseMaterials(this.content, (material) => {
-            if (material.map) material.map.encoding = encoding;
-            if (material.emissiveMap) material.emissiveMap.encoding = encoding;
-            if (material.map || material.emissiveMap) material.needsUpdate = true;
+            if (material.map) {
+                material.map.encoding = encoding;
+            }
+            if (material.emissiveMap) {
+                material.emissiveMap.encoding = encoding;
+            }
+            if (material.map || material.emissiveMap) {
+                material.needsUpdate = true;
+            }
         });
     }
 
@@ -408,7 +416,9 @@ module.exports = class Viewer {
         const {path, format} = environment;
 
         // no envmap
-        if (!path) return Promise.resolve({envMap: null, cubeMap: null});
+        if (!path) {
+            return Promise.resolve({envMap: null, cubeMap: null});
+        }
 
         const cubeMapURLs = [
             path + 'posx' + format, path + 'negx' + format,
@@ -532,7 +542,9 @@ module.exports = class Viewer {
         this.animFolder.domElement.style.display = 'none';
         const playbackSpeedCtrl = this.animFolder.add(this.state, 'playbackSpeed', 0, 1);
         playbackSpeedCtrl.onChange((speed) => {
-            if (this.mixer) this.mixer.timeScale = speed;
+            if (this.mixer) {
+                this.mixer.timeScale = speed;
+            }
         });
         this.animFolder.add({playAll: () => this.playAllClips()}, 'playAll');
 
@@ -585,7 +597,9 @@ module.exports = class Viewer {
 
         if (cameraNames.length) {
             this.cameraFolder.domElement.style.display = '';
-            if (this.cameraCtrl) this.cameraCtrl.remove();
+            if (this.cameraCtrl) {
+                this.cameraCtrl.remove();
+            }
             const cameraOptions = [DEFAULT_CAMERA].concat(cameraNames);
             this.cameraCtrl = this.cameraFolder.add(this.state, 'camera', cameraOptions);
             this.cameraCtrl.onChange((name) => this.setCamera(name));
@@ -601,7 +615,9 @@ module.exports = class Viewer {
                 for (let i = 0; i < mesh.morphTargetInfluences.length; i++) {
                     const ctrl = this.morphFolder.add(mesh.morphTargetInfluences, i, 0, 1, 0.01).listen();
                     Object.keys(mesh.morphTargetDictionary).forEach((key) => {
-                        if (key && mesh.morphTargetDictionary[key] === i) ctrl.name(key);
+                        if (key && mesh.morphTargetDictionary[key] === i) {
+                            ctrl.name(key);
+                        }
                     });
                     this.morphCtrls.push(ctrl);
                 }
@@ -636,14 +652,18 @@ module.exports = class Viewer {
 
     clear() {
 
-        if (!this.content) return;
+        if (!this.content) {
+            return;
+        }
 
         this.scene.remove(this.content);
 
         // dispose geometry
         this.content.traverse((node) => {
 
-            if (!node.isMesh) return;
+            if (!node.isMesh) {
+                return;
+            }
 
             node.geometry.dispose();
 
@@ -654,7 +674,9 @@ module.exports = class Viewer {
 
             MAP_NAMES.forEach((map) => {
 
-                if (material[map]) material[map].dispose();
+                if (material[map]) {
+                    material[map].dispose();
+                }
 
             });
 
@@ -666,7 +688,9 @@ module.exports = class Viewer {
 
 function traverseMaterials(object, callback) {
     object.traverse((node) => {
-        if (!node.isMesh) return;
+        if (!node.isMesh) {
+            return;
+        }
         const materials = Array.isArray(node.material)
             ? node.material
             : [node.material];
