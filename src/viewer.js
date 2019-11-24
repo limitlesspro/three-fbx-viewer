@@ -1,3 +1,5 @@
+/** global: THREE, Stats, dat, environments, createVignetteBackground, DEFAULT_CAMERA, IS_IOS, MAP_NAMES, Preset, navigator **/
+
 const THREE = window.THREE = require('three');
 const Stats = require('../lib/stats.min');
 const dat = require('dat.gui');
@@ -433,10 +435,10 @@ module.exports = class Viewer {
 
                 new THREE.HDRCubeTextureLoader().load(THREE.UnsignedByteType, cubeMapURLs, (hdrCubeMap) => {
 
-                    var pmremGenerator = new THREE.PMREMGenerator(hdrCubeMap);
+                    const pmremGenerator = new THREE.PMREMGenerator(hdrCubeMap);
                     pmremGenerator.update(this.renderer);
 
-                    var pmremCubeUVPacker = new THREE.PMREMCubeUVPacker(pmremGenerator.cubeLods);
+                    const pmremCubeUVPacker = new THREE.PMREMCubeUVPacker(pmremGenerator.cubeLods);
                     pmremCubeUVPacker.update(this.renderer);
 
                     resolve({
