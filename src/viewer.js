@@ -168,6 +168,7 @@ module.exports = class Viewer {
         // Load.
         return new Promise((resolve, reject) => {
             const manager = new THREE.LoadingManager();
+            const blobURLs = [];
 
             manager.onError = (url) => {
                 const message = 'Error loading url: ' + url;
@@ -184,6 +185,7 @@ module.exports = class Viewer {
 
                 if (assetMap.has(normalizedURL)) {
                     const blob = assetMap.get(normalizedURL);
+                    /** global: URL */
                     const blobURL = URL.createObjectURL(blob);
                     blobURLs.push(blobURL);
                     return blobURL;
@@ -195,9 +197,7 @@ module.exports = class Viewer {
 
             const loader = new THREE.FBXLoader(manager);
             loader.setCrossOrigin('anonymous');
-
-            const blobURLs = [];
-
+            
             loader.load(url, (file) => {
 
                 const scene = file;
